@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <form action="{{ url_for('register') }}" method="POST" class="form">
+        <input type="text" name="firstname" placeholder="Firstname" required>
+        <input type="text" name="lastname" placeholder="Lastname" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <legend><h2>Registered Users</h2></legend>
+    <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Lastname</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+        {% for user in users %}
+        <tbody>
+
+           <tr>
+               <td>{{ user.firstname }}</td>
+               <td>{{ user.lastname }}</td>
+               <td>{{ user.username }}</td>
+
+
+            <td><form action="{{ url_for('delete_user', id=user.id) }}" method="POST" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+            </td>
+          </tr>
+        </tbody>
+        {% endfor %}
+       </table>
+</div>
+{% endblock %}
